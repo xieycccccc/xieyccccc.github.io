@@ -3,13 +3,15 @@ my own web try
 
 # To do List
 
-智能控制作业
+智能控制作业2
 
-运动控制建模
+运动控制优化讨论
 
-人机mo平台
+人机mo平台234
 
-魔方机器人电机板子选型设计
+srtp仿真
+
+
 
 Vue前端学习
 
@@ -26,3 +28,5 @@ huggingface-cli download <模型名>bigscience/bloom-560m --local-dir <位置>bl
 
 需要认证的
 huggingface-cli download --token hf_*** --resume-download bigscience/bloom-560m --local-dir bloom-560m
+
+### LLM学习，想从底层学习
