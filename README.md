@@ -5,11 +5,11 @@ my own web try
 
 智能控制作业2
 
-运动控制优化讨论
+运动控制机械建模，ppt
 
-人机mo平台234
+人机mo平台34
 
-srtp仿真
+loopllm适配vlm
 
 
 
@@ -30,3 +30,7 @@ huggingface-cli download <模型名>bigscience/bloom-560m --local-dir <位置>bl
 huggingface-cli download --token hf_*** --resume-download bigscience/bloom-560m --local-dir bloom-560m
 
 ### LLM学习，想从底层学习
+
+
+
+### 奇思妙想

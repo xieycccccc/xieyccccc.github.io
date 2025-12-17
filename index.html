@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 - xieyccccc</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #0078d7;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            margin: 0.5rem 0 0;
+        }
+        nav {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #0078d7;
+            margin: 0 1rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #333;
+            color: #fff;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>欢迎来到我的个人主页</h1>
+        <p>记录我的学习与成长</p>
+    </header>
+    <nav>
+        <a href="#about">关于我</a>
+        <a href="#projects">项目</a>
+        <a href="#notes">学习笔记</a>
+    </nav>
+    <section id="about">
+        <h2>关于我</h2>
+        <p>你好！我是 xieyccccc，一名热爱学习与探索的开发者。目前专注于智能控制、运动控制优化、人机交互平台开发以及前端与大语言模型的学习。</p>
+    </section>
+    <section id="projects">
+        <h2>项目</h2>
+        <ul>
+            <li>智能控制作业2</li>
+            <li>运动控制优化讨论</li>
+            <li>人机mo平台234</li>
+            <li>SRTP仿真</li>
+            <li>Vue前端学习</li>
+        </ul>
+    </section>
+    <section id="notes">
+        <h2>学习笔记</h2>
+        <p>以下是一些实用的命令和学习记录：</p>
+        <pre>
+换成镜像站
+export HF_ENDPOINT=https://hf-mirror.com
+
+下载模型格式语句
+huggingface-cli download <模型名>bigscience/bloom-560m --local-dir <位置>bloom-560m
+
+需要认证的
+huggingface-cli download --token hf_*** --resume-download bigscience/bloom-560m --local-dir bloom-560m
+        </pre>
+    </section>
+    <footer>
+        <p>© 2025 xieyccccc. 保留所有权利。</p>
+    </footer>
+</body>
+</html>
