@@ -12,7 +12,8 @@ export default defineConfig({
       { text: 'Will Learn', link: '/will_learn' },
       { text: 'Learned', link: '/learned' },
       { text: 'Learning...', link: '/learning' },
-      { text: 'LeetCode Hot 100', link: '/leetcode/' }
+      { text: 'LeetCode Hot 100', link: '/leetcode/' },
+      { text: 'LLM彻底学习', link: '/llm_study' }
     ],
 
     sidebar: {
@@ -52,11 +53,19 @@ export default defineConfig({
             { text: '哈希表', link: '/leetcode/hash-maps' },
           ]
         }
+      ],
+      'LLM彻底学习': [
+        {
+          text: 'LLM彻底学习',
+          items: [
+            
+          ]
+        }
       ]
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/xieycccccc/xieycccccc.github.io' }
     ]
   }
 })
