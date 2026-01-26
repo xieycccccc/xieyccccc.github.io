@@ -59,7 +59,7 @@ export default defineConfig({
         {
           text: 'LLM彻底学习',
           items: [
-            { text: '基本理解', link: '/llm_study/introduction' },
+            { text: '基本理解', link: '/llm_study/introduction' }
           ]
         }
       ]
