@@ -51,7 +51,12 @@ export default defineConfig({
           text: 'LeetCode Hot 100',
           items: [
             { text: '哈希表', link: '/leetcode/hash-maps' },
-            { text: '双指针', link: '/leetcode/two-pointers' }
+            { text: '双指针', link: '/leetcode/two-pointers' },
+            {text:'滑动窗口', link: '/leetcode/sliding-window' },
+            {text:'子串', link: '/leetcode/substring' },
+            {text:'数组', link: '/leetcode/array' },
+            {text:'矩阵', link: '/leetcode/matrix'},
+            {text:'链表', link: '/leetcode/linked-list' },
           ]
         }
       ],
