@@ -57,6 +57,7 @@ export default defineConfig({
             {text:'数组', link: '/leetcode/array' },
             {text:'矩阵', link: '/leetcode/matrix'},
             {text:'链表', link: '/leetcode/linked-list' },
+            {text:'二叉树', link: '/leetcode/binary-tree' },
           ]
         }
       ],
