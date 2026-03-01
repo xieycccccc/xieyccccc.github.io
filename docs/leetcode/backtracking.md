@@ -67,3 +67,78 @@ public:
     }
 };
 ```
+
+看官方题解还有一种解法，应该是偏数学的解法，利用每个数的二进制位来表示是否选取这个数来求解
+```cpp
+class Solution {
+public:
+    vector<int> t;
+    vector<vector<int>> ans;
+
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n = nums.size();
+        for (int mask = 0; mask < (1 << n); ++mask) {//表示 2^n 种情况
+            t.clear();
+            for (int i = 0; i < n; ++i) {
+                if (mask & (1 << i)) {//按位与运算，只有当 mask 的第 i 位为 1 时，结果才不为 0（条件成立）
+                    t.push_back(nums[i]);
+                }
+            }
+            ans.push_back(t);
+        }
+        return ans;
+    }
+};
+
+作者：力扣官方题解
+链接：https://leetcode.cn/problems/subsets/solutions/420294/zi-ji-by-leetcode-solution/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+
+
+### 17. 电话号码的字母组合
+...这题，难度在于把数字和字母列出来，一开始以为都是1对3，但是逻辑一样，就懒得写了，直接用官方解吧
+```cpp
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> combinations;
+        if (digits.empty()) {
+            return combinations;
+        }
+        unordered_map<char, string> phoneMap{
+            {'2', "abc"},
+            {'3', "def"},
+            {'4', "ghi"},
+            {'5', "jkl"},
+            {'6', "mno"},
+            {'7', "pqrs"},
+            {'8', "tuv"},
+            {'9', "wxyz"}
+        };
+        string combination;
+        backtrack(combinations, phoneMap, digits, 0, combination);
+        return combinations;
+    }
+
+    void backtrack(vector<string>& combinations, const unordered_map<char, string>& phoneMap, const string& digits, int index, string& combination) {
+        if (index == digits.length()) {
+            combinations.push_back(combination);
+        } else {
+            char digit = digits[index];
+            const string& letters = phoneMap.at(digit);
+            for (const char& letter: letters) {
+                combination.push_back(letter);
+                backtrack(combinations, phoneMap, digits, index + 1, combination);
+                combination.pop_back();
+            }
+        }
+    }
+};
+
+作者：力扣官方题解
+链接：https://leetcode.cn/problems/letter-combinations-of-a-phone-number/solutions/388738/dian-hua-hao-ma-de-zi-mu-zu-he-by-leetcode-solutio/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
