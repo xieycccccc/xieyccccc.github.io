@@ -182,3 +182,169 @@ public:
     }
 };
 ```
+
+
+### 22 括号生成
+依旧回溯，比之前的区别就是情况分类多一点，有些的时候需要同时增加左括号和右括号，有些时候只能增加左括号，有些时候只能增加右括号，注意不能出现右括号多于左括号的情况
+```cpp
+class Solution {
+public:
+    vector<string> ans;
+    vector<string> generateParenthesis(int n) {
+        string now_str;
+        back(n, n, now_str);
+        return ans;
+    }
+
+    void back(int left, int right, string now_str) {
+        if (left == 0 && right == 0) {
+            ans.push_back(now_str);
+            return;
+        } else {
+            string temp = now_str;
+            if (left < right && left > 0) {
+                temp.push_back('(');
+                string temp_2 = now_str;
+                back(left - 1, right, temp);
+                temp_2.push_back(')');
+                back(left, right - 1, temp_2);
+            } else if (left == 0) {
+                temp.push_back(')');
+                back(left, right - 1, temp);
+            } else if (left == right) {
+                temp.push_back('(');
+                back(left - 1, right, temp);
+            } else {
+                return;
+            }
+        }
+    }
+};
+```
+
+官方还给了挺多解法的
+1. 暴力解法，全部列出来再过滤掉不合法的
+```cpp
+class Solution {
+    bool valid(const string& str) {
+        int balance = 0;
+        for (char c : str) {
+            if (c == '(') {
+                ++balance;
+            } else {
+                --balance;
+            }
+            if (balance < 0) {
+                return false;
+            }
+        }
+        return balance == 0;
+    }
+
+    void generate_all(string& current, int n, vector<string>& result) {
+        if (n == current.size()) {
+            if (valid(current)) {
+                result.push_back(current);
+            }
+            return;
+        }
+        current += '(';
+        generate_all(current, n, result);
+        current.pop_back();
+        current += ')';
+        generate_all(current, n, result);
+        current.pop_back();
+    }
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        string current;
+        generate_all(current, n * 2, result);
+        return result;
+    }
+};
+
+作者：力扣官方题解
+链接：https://leetcode.cn/problems/generate-parentheses/solutions/192912/gua-hao-sheng-cheng-by-leetcode-solution/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+2. 回溯解法，之前的解法已经是回溯了，这里是官方的解法，思路一样但是官方的分类方面比我更好
+```cpp
+class Solution {
+    void backtrack(vector<string>& ans, string& cur, int open, int close, int n) {
+        if (cur.size() == n * 2) {
+            ans.push_back(cur);
+            return;
+        }
+        if (open < n) {
+            cur.push_back('(');
+            backtrack(ans, cur, open + 1, close, n);
+            cur.pop_back();
+        }
+        if (close < open) {
+            cur.push_back(')');
+            backtrack(ans, cur, open, close + 1, n);
+            cur.pop_back();
+        }
+    }
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        string current;
+        backtrack(result, current, 0, 0, n);
+        return result;
+    }
+};
+
+作者：力扣官方题解
+链接：https://leetcode.cn/problems/generate-parentheses/solutions/192912/gua-hao-sheng-cheng-by-leetcode-solution/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+
+
+3. 按括号序列的长度递归
+
+这个解法感觉有些非人类了，首先任何一个合法的括号序列都能写成 (a)b 的形式，所以我们的求解变为求解a和b的所有可能，a的长度为i（从0到n-1），b的长度为n-i-1（因为括号序列的长度为2n，所以a和b的长度之和为2n-2），然后把所有a和b的组合起来就得到了所有合法的括号序列了，答案中对于a和b的求解又是递归的，所以就得到了一个递归的解法，最后为了避免重复计算，我们使用了一个缓存来存储已经计算过的结果，这样就得到了一个记忆化的递归解法了，👍
+```cpp
+class Solution {
+    // 缓存：存储已经计算过的generate(i)结果，避免重复递归（记忆化）
+    shared_ptr<vector<string>> cache[100] = {nullptr};
+public:
+    // 核心递归函数：返回所有长度为2n的合法括号序列
+    shared_ptr<vector<string>> generate(int n) {
+        // 1. 记忆化：如果已经计算过n的结果，直接返回缓存
+        if (cache[n] != nullptr)
+            return cache[n];
+        
+        // 2. 基准情况：n=0（0对括号），只有空字符串
+        if (n == 0) {
+            cache[0] = shared_ptr<vector<string>>(new vector<string>{""});
+        } else {
+            // 3. 递归情况：生成n对括号的所有序列
+            auto result = shared_ptr<vector<string>>(new vector<string>);
+            // 枚举a的长度i（从0到n-1）
+            for (int i = 0; i != n; ++i) {
+                // 生成a的所有可能（i对括号）
+                auto lefts = generate(i);
+                // 生成b的所有可能（n-i-1对括号）
+                auto rights = generate(n - i - 1);
+                // 拼接所有a和b的组合：(a)b
+                for (const string& left : *lefts)
+                    for (const string& right : *rights)
+                        result -> push_back("(" + left + ")" + right);
+            }
+            // 4. 把结果存入缓存，方便后续复用
+            cache[n] = result;
+        }
+        return cache[n];
+    }
+    
+    // 对外接口：调用generate(n)并返回结果
+    vector<string> generateParenthesis(int n) {
+        return *generate(n);
+    }
+};
+```
+
