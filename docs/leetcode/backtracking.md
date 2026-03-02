@@ -142,3 +142,43 @@ public:
 来源：力扣（LeetCode）
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 ```
+
+
+### 39. 组合总和
+这题也是经典的回溯题目，就是根据一个数选的个数来递归，每次选一个数，递归减去（注意不选这个数的情况），直到递归到0或者负数
+```cpp
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+
+        // 先排个序
+        sort(candidates.begin(), candidates.end());
+        // for (int i = 0; i < candidates.size(); i++) {
+        //     cout << candidates[i] << endl;
+        // }
+        vector<int> chosen;
+        back(candidates, 0, target, chosen);
+
+        return ans;
+    }
+
+    void back(vector<int>& candidates, int index, int target,
+              vector<int>& chosen) {
+
+        if (target == 0) {
+            ans.push_back(chosen);
+            return;
+        }
+        if (index == candidates.size()) {
+            return;
+        }
+        vector<int> temp_chosen = chosen;
+        while (target >= 0) {
+            back(candidates, index + 1, target, temp_chosen);
+            target -= candidates[index];
+            temp_chosen.push_back(candidates[index]);
+        }
+    }
+};
+```
