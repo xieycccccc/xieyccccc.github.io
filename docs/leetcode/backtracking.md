@@ -348,3 +348,53 @@ public:
 };
 ```
 
+### 79 单词搜索
+经典的回溯题目，使用dfs的方式遍历，遍历从每个头开始，递归4个方向，注意标记已访问的，也要注意撤销
+```cpp
+class Solution {
+public:
+    bool flag = false;
+    vector<vector<int>> way = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        vector<vector<bool>> have_arrived(m, vector<bool>(n, false));
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dfs(board, i, j, word, 0, have_arrived);
+                if (flag) {
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
+
+    void dfs(vector<vector<char>>& board, int i, int j, string word, int index,
+             vector<vector<bool>>& have_arrived) {
+        if (board[i][j] == word[index]) {
+            if (index == word.size() - 1) {
+                flag = true;
+            }
+            have_arrived[i][j] = true;
+            int m = board.size();
+            int n = board[0].size();
+            for (int way_index = 0; way_index < 4; way_index++) {
+                int now_i = i + way[way_index][0];
+                int now_j = j + way[way_index][1];
+                if (now_i >= 0 && now_i < m && now_j >= 0 && now_j < n) {
+                    if (!have_arrived[now_i][now_j]) {
+                        have_arrived[now_i][now_j] = true;
+                        dfs(board, now_i, now_j, word, index + 1, have_arrived);
+                        have_arrived[now_i][now_j] = false;
+                    }
+                }
+            }
+            have_arrived[i][j] = false;
+        }
+        return;
+    }
+};
+```
+
+
