@@ -62,6 +62,7 @@ export default defineConfig({
             {text:'二叉树', link: '/leetcode/binary-tree' },
             {text:'图', link: '/leetcode/graph'},
             {text:'回溯', link: '/leetcode/backtracking'},
+            {text:'二分查找', link: '/leetcode/binary-search'},
           ]
         }
       ],
